@@ -156,30 +156,31 @@
   <div class="container">
     <h1>TEM 费用计算器</h1>
     <form id="feeForm">
-      <label>
-        TEM 小时数
-        <input type="number" min="0" step="0.5" id="tem" required value="0">
-      </label>
-      <label>
-        STEM 小时数
-        <input type="number" min="0" step="0.5" id="stem" required value="0">
-      </label>
-      <label>
-        SAED 数量
-        <input type="number" min="0" step="1" id="saed" required value="0">
-      </label>
-      <label>
-        HRTEM 数量
-        <input type="number" min="0" step="1" id="hrtem" required value="0">
-      </label>
-      <label>
-        EDS mapping 数量
-        <input type="number" min="0" step="1" id="edsmap" required value="0">
-      </label>
-      <label>
-        EDS linescan 数量
-        <input type="number" min="0" step="1" id="edsline" required value="0">
-      </label>
+<label>
+  TEM 小时数
+  <input type="number" min="0" step="0.5" id="tem" required>
+</label>
+<label>
+  STEM 小时数
+  <input type="number" min="0" step="0.5" id="stem" required>
+</label>
+<label>
+  SAED 数量
+  <input type="number" min="0" step="1" id="saed" required>
+</label>
+<label>
+  HRTEM 数量
+  <input type="number" min="0" step="1" id="hrtem" required>
+</label>
+<label>
+  EDS mapping 数量
+  <input type="number" min="0" step="1" id="edsmap" required>
+</label>
+<label>
+  EDS linescan 数量
+  <input type="number" min="0" step="1" id="edsline" required>
+</label>
+
       <button type="submit">计算费用</button>
     </form>
     <div id="output"></div>
