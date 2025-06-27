@@ -29,7 +29,7 @@
       background: var(--card-bg);
       border-radius: 18px;
       box-shadow: var(--shadow);
-      padding: 32px 22px 24px 22px;
+      padding: 22px 22px 24px 22px;
       border: 1px solid var(--border);
     }
     h1 {
@@ -188,13 +188,24 @@
   <script>
     document.getElementById('feeForm').onsubmit = function(e){
       e.preventDefault();
-      // 获取输入
-      const tem = parseFloat(document.getElementById('tem').value)||0;
-      const stem = parseFloat(document.getElementById('stem').value)||0;
-      const saed = parseInt(document.getElementById('saed').value)||0;
-      const hrtem = parseInt(document.getElementById('hrtem').value)||0;
-      const edsmap = parseInt(document.getElementById('edsmap').value)||0;
-      const edsline = parseInt(document.getElementById('edsline').value)||0;
+const temVal = document.getElementById('tem').value;
+const tem = temVal === "" ? "" : parseFloat(temVal);
+
+const stemVal = document.getElementById('stem').value;
+const stem = stemVal === "" ? "" : parseFloat(stemVal);
+
+const saedVal = document.getElementById('saed').value;
+const saed = saedVal === "" ? "" : parseInt(saedVal);
+
+const hrtemVal = document.getElementById('hrtem').value;
+const hrtem = hrtemVal === "" ? "" : parseInt(hrtemVal);
+
+const edsmapVal = document.getElementById('edsmap').value;
+const edsmap = edsmapVal === "" ? "" : parseInt(edsmapVal);
+
+const edslineVal = document.getElementById('edsline').value;
+const edsline = edslineVal === "" ? "" : parseInt(edslineVal);
+
 
       // 费率与单价
       const rate_tem = 500, rate_stem = 650, fee_saed = 200, fee_hrtem = 600, fee_edsmap = 750, fee_edsline = 100;
