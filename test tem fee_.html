@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TEM 费用计算器</title>
+  <style>
+    :root {
+      --main-bg: #f7f8fa;
+      --card-bg: #fff;
+      --border: #e5e6e8;
+      --accent: #222326;
+      --input-bg: #f4f4f7;
+      --input-br: #d4d6da;
+      --input-txt: #232326;
+      --shadow: 0 3px 16px #0001;
+      --font-sans: 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Arial', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    }
+    body {
+      background: var(--main-bg);
+      margin: 0; padding: 0;
+      font-family: var(--font-sans);
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+    .container {
+      max-width: 385px;
+      margin: 36px auto 0 auto;
+      background: var(--card-bg);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 32px 22px 24px 22px;
+      border: 1px solid var(--border);
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.32em;
+      font-weight: 600;
+      margin-bottom: 18px;
+      letter-spacing: 0.04em;
+      color: #1a1a1a;
+    }
+    form label {
+      display: flex;
+      align-items: center;
+      margin-top: 13px;
+      font-weight: 500;
+      font-size: 1em;
+      color: #444;
+      letter-spacing: 0.01em;
+    }
+    form label:first-of-type { margin-top: 0; }
+    input[type="number"] {
+      flex: none;
+      width: 84px;
+      margin-left: auto;
+      padding: 5px 10px;
+      font-size: 1em;
+      border-radius: 7px;
+      border: 1px solid var(--input-br);
+      background: var(--input-bg);
+      color: var(--input-txt);
+      transition: border 0.15s, box-shadow 0.18s;
+      outline: none;
+      box-shadow: none;
+    }
+    input[type="number"]:focus {
+      border-color: #aaa;
+      box-shadow: 0 1px 3px #0001;
+    }
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 11px 0;
+      font-size: 1.09em;
+      border-radius: 8px;
+      border: none;
+      background: #212124;
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 2px 6px #0001;
+      cursor: pointer;
+      letter-spacing: 0.06em;
+      transition: background 0.14s;
+    }
+    button:hover {
+      background: #444;
+    }
+    .fee-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 17px 0 0 0;
+      font-size: 1em;
+      background: #f8f9fb;
+      border-radius: 9px;
+      overflow: hidden;
+      --font-sans: 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Arial', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    }
+    .fee-table th, .fee-table td {
+      border: none;
+      padding: 7px 0;
+      text-align: center;
+    }
+    .fee-table th {
+      background: #f2f2f2;
+      font-weight: 600;
+      color: #333;
+      font-size: 1em;
+      border-bottom: 2px solid #e2e2e2;
+    }
+    .fee-table tr:not(:last-child) td {
+      border-bottom: 1px solid #e7e7ea;
+    }
+    .fee-table tr:hover td {
+      background: #f4f6fa;
+    }
+.result-cn {
+  color: #25303a;
+  font-family: var(--font-sans);
+  font-size: 1em;
+  letter-spacing: 0.01em;
+  line-height: 1.58;
+  margin-top: 24px;   /* 增大这里，比如24px，默认是11px */
+}
+
+    .subtle {
+      font-size: 12px;
+      color: #222326;
+      opacity: 0.58;
+      display: block;
+      margin-top: 3px;
+      font-family: inherit;
+      letter-spacing: 0.02em;
+    }
+    .note {
+      margin-top: 16px;
+      color: #b6b7bc;
+      font-size: 0.96em;
+      text-align: center;
+      letter-spacing: 0.06em;
+      font-weight: 400;
+    }
+    @media (max-width: 440px) {
+      .container { padding: 20px 4vw 15px 4vw; }
+      .fee-table { font-size: 0.98em;}
+      h1 { font-size: 1.14em; }
+      input[type="number"] { width: 68px; }
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>TEM 费用计算器</h1>
+    <form id="feeForm">
+      <label>
+        TEM 小时数
+        <input type="number" min="0" step="0.5" id="tem" required value="0">
+      </label>
+      <label>
+        STEM 小时数
+        <input type="number" min="0" step="0.5" id="stem" required value="0">
+      </label>
+      <label>
+        SAED 数量
+        <input type="number" min="0" step="1" id="saed" required value="0">
+      </label>
+      <label>
+        HRTEM 数量
+        <input type="number" min="0" step="1" id="hrtem" required value="0">
+      </label>
+      <label>
+        EDS mapping 数量
+        <input type="number" min="0" step="1" id="edsmap" required value="0">
+      </label>
+      <label>
+        EDS linescan 数量
+        <input type="number" min="0" step="1" id="edsline" required value="0">
+      </label>
+      <button type="submit">计算费用</button>
+    </form>
+    <div id="output"></div>
+    <div class="note">© SICCAS TEM LAB UTILITY</div>
+  </div>
+  <script>
+    document.getElementById('feeForm').onsubmit = function(e){
+      e.preventDefault();
+      // 获取输入
+      const tem = parseFloat(document.getElementById('tem').value)||0;
+      const stem = parseFloat(document.getElementById('stem').value)||0;
+      const saed = parseInt(document.getElementById('saed').value)||0;
+      const hrtem = parseInt(document.getElementById('hrtem').value)||0;
+      const edsmap = parseInt(document.getElementById('edsmap').value)||0;
+      const edsline = parseInt(document.getElementById('edsline').value)||0;
+
+      // 费率与单价
+      const rate_tem = 500, rate_stem = 650, fee_saed = 200, fee_hrtem = 600, fee_edsmap = 750, fee_edsline = 100;
+
+      // 计算各项费用
+      const tem_fee = rate_tem * (tem/0.5);
+      const stem_fee = rate_stem * (stem/0.5);
+      const saed_fee = fee_saed * saed;
+      const hrtem_fee = fee_hrtem * hrtem;
+      const edsmap_fee = fee_edsmap * edsmap;
+      const edsline_fee = fee_edsline * edsline;
+
+      const quoted = tem_fee + stem_fee + saed_fee + hrtem_fee + edsmap_fee + edsline_fee;
+      const oa_fee = quoted * 1.4;
+      const group_fee = quoted * 0.7;
+
+      // 中文+英文表头 HTML 表格输出
+      let tableHTML = `
+      <table class="fee-table">
+        <tr>
+          <th>项目<br><span style="font-weight:400;font-size:0.93em;color:#888;"></span></th>
+          <th>报价<br><span style="font-weight:400;font-size:0.93em;color:#888;"></span></th>
+          <th>个数<br><span style="font-weight:400;font-size:0.93em;color:#888;"></span></th>
+          <th>单项总价<br><span style="font-weight:400;font-size:0.93em;color:#888;"></span></th>
+        </tr>
+        <tr><td>TEM</td><td>${rate_tem}</td><td>${tem.toFixed(2)}</td><td>${tem_fee.toFixed(2)}</td></tr>
+        <tr><td>STEM</td><td>${rate_stem}</td><td>${stem.toFixed(2)}</td><td>${stem_fee.toFixed(2)}</td></tr>
+        <tr><td>SAED</td><td>${fee_saed}</td><td>${saed}</td><td>${saed_fee.toFixed(2)}</td></tr>
+        <tr><td>HRTEM</td><td>${fee_hrtem}</td><td>${hrtem}</td><td>${hrtem_fee.toFixed(2)}</td></tr>
+        <tr><td>EDS mapping</td><td>${fee_edsmap}</td><td>${edsmap}</td><td>${edsmap_fee.toFixed(2)}</td></tr>
+        <tr><td>EDS linescan</td><td>${fee_edsline}</td><td>${edsline}</td><td>${edsline_fee.toFixed(2)}</td></tr>
+      </table>
+      `;
+
+      // 中文说明，最后一句缩小
+      let cn = `
+合计（名义报价）：${quoted.toFixed(2)} RMB<br>
+OA系统价格（×1.4）：${oa_fee.toFixed(2)} RMB<br>
+课题组实际花费（×0.7）：${group_fee.toFixed(2)} RMB
+<span class="subtle">说明：实际价格为OA上价格返还一半后价格（即报价的七折）</span>
+      `;
+
+      document.getElementById('output').innerHTML =
+        tableHTML +
+        `<div class="result-cn">${cn}</div>`;
+    }
+  </script>
+  <script>
+(function() {
+  var marks = [ "13%", "33%", "53%", "73%" ]; // 可以根据页面高度自定义
+  marks.forEach(function(top) {
+    var wm = document.createElement("div");
+    wm.textContent = "仅供内部使用 / INTERNAL USE ONLY";
+    wm.style.position = "fixed";
+    wm.style.left = "50%";
+    wm.style.top = top;
+    wm.style.transform = "translateX(-50%) rotate(-24deg)";
+    wm.style.fontSize = "2em";
+    wm.style.color = "#222326";
+    wm.style.opacity = "0.09";
+    wm.style.fontWeight = "600";
+    wm.style.pointerEvents = "none";
+    wm.style.userSelect = "none";
+    wm.style.letterSpacing = "0.17em";
+    wm.style.whiteSpace = "pre";
+    wm.style.zIndex = "9999";
+    wm.style.width = "max-content";
+    wm.style.maxWidth = "98vw";
+    document.body.appendChild(wm);
+  });
+})();
+</script>
+</body>
+</html>
